@@ -1,1 +1,16 @@
-[README (1).md](https://github.com/blvckeasy/node-canvas-recursive-photo/files/10831092/README.1.md)
+## Recursive Image
+
+Recursive image preparation in nodejs ```canvas``` package.
+## Install
+
+Install all packages
+
+```bash
+  npm install
+```
+
+Run and enjoy:
+
+```bash
+  npm app.js
+```
