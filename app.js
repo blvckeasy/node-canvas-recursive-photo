@@ -1,40 +1,30 @@
 const { createCanvas, loadImage } = require('canvas')
-const fs = require('fs')
+const Fs = require('fs')
+const Path = require('path')
 
-async function createRecursiveImage() {
-  loadImage(__dirname + '/none.jpeg')
+async function createRecursiveImage(imagePath, imageCount) {
+  loadImage(Path.join(__dirname, imagePath))
     .then(image => {
       let start = { x: 0, y: 0 }
       let end = { x: image.width, y: image.height }
-      // image count
-      let count = 4
 
       const canvas = createCanvas(image.width, image.height)
       const ctx = canvas.getContext('2d')
 
       ctx.beginPath()
 
-      canvas.width = image.width
-      canvas.height = image.height
-
       for (
         let x = start.x, y = start.y;
         x < end.x && y < end.y;
-        _z = Math.ceil(end.x / (count * 2)), x += _z, y -= _z
+        _z = Math.ceil(end.x / (imageCount * 2)), x += _z, y -= _z
       ) {
         if (x > image.width - x || y > image.height - y) {
           break
         }
 
-        ctx.drawImage(
-          image,
-          x,
-          Math.abs(y),
-          image.width - 2 * x,
-          image.height + 2 * y
-        )
+        ctx.drawImage(image, x, Math.abs(y), end.x - 2 * x, end.y + 2 * y)
 
-        const out = fs.createWriteStream(__dirname + '/answer.jpg')
+        const out = Fs.createWriteStream(Path.join(__dirname, 'answer.jpg'))
         const stream = canvas.createJPEGStream()
         stream.pipe(out)
 
@@ -49,4 +39,4 @@ async function createRecursiveImage() {
     })
 }
 
-createRecursiveImage()
+createRecursiveImage('none.jpeg', 5)
