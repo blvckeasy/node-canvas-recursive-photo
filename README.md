@@ -12,5 +12,5 @@ Install all packages
 Run and enjoy:
 
 ```bash
-  npm app.js
+  node app.js
 ```
